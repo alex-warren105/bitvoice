@@ -89,12 +89,12 @@ form {
   margin: 0 auto;
 }
 
-#recipient-email,
-#sender-contact,
-#units-invoiced {
+#recipientEmail,
+#senderContact,
+#unitsInvoiced {
   margin-bottom: 30px;
 }
 
-#invoice-description {
+#invoiceDescription {
   height: 200px;
 }

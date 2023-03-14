@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { send } from 'emailjs-com'
+import { useHistory } from 'react-router-dom'
 
 
 export default function App() {
@@ -16,12 +17,15 @@ export default function App() {
   const handleChange = (e) => {
     setToSend({ ...toSend, [e.target.name]: e.target.value });
   };
+  
+  const history = useHistory();
 
   function onSubmit(e) {
     e.preventDefault();
-    send('default_service', 'template_efo3bp2', toSend, 'wFHLTcghtNMJbuPQZ')
+    send('Bitvoice', 'template_efo3bp2', toSend, 'wFHLTcghtNMJbuPQZ')
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
+        history.push('/receipt', { toSend });
       })
       .catch((err) => {
         console.log('FAILED...', err);

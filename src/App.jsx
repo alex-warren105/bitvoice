@@ -19,7 +19,7 @@ export default function App() {
 
   function onSubmit(e) {
     e.preventDefault();
-    send(Bitvoice, template_efo3bp2, toSend, wFHLTcghtNMJbuPQZ)
+    send('default_service', 'template_efo3bp2', toSend, 'wFHLTcghtNMJbuPQZ')
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
       })

@@ -3,21 +3,29 @@ import './App.css'
 import emailjs from '@emailjs/browser'
 import React, { useRef } from 'react';
 
-
 export default function App() {
 
-const form = useRef();
+  const [timestamp, setTimestamp] = useState(null);
 
-  const sendEmail = (e) => {
-    e.preventDefault();
+  const form = useRef();
 
-    emailjs.sendForm('default_service', 'template_efo3bp2', form.current, 'wFHLTcghtNMJbuPQZ')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
-  };
+    const sendEmail = (e) => {
+      e.preventDefault();
+
+      // Get the current date and time
+      const now = new Date();
+
+      // Save the timestamp to state
+      setTimestamp(now);
+
+
+      emailjs.sendForm('default_service', 'template_efo3bp2', form.current, 'wFHLTcghtNMJbuPQZ')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+    };
 
   return (
     <div className="App">
@@ -58,6 +66,13 @@ const form = useRef();
           required></textarea>
 
           <input type="submit" value="Send!" />
+
+          <input 
+            type='hidden' 
+            id="timestamp" 
+            name='timestamp' 
+            value={timestamp ? timestamp.toLocaleString() : ''}
+          />
         </form>
       </main>
     </div>

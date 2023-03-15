@@ -53,12 +53,7 @@ export default function EmailForm() {
 
         <input type="submit" value="Send!" />
 
-        <input 
-            type='hidden' 
-            id="timestamp" 
-            name='timestamp' 
-            value={timestamp}
-            />
+        <input type='hidden' id="timestamp" name='timestamp' value={timestamp}/>
         </form>
     );
 }

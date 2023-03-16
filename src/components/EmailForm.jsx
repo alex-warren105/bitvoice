@@ -3,6 +3,7 @@ import emailjs from 'emailjs-com';
 
 export default function EmailForm() {
     const [timestamp, setTimestamp] = useState('')
+    const [emailSent, setEmailSent] = useState(false);
     const form = useRef();
 
     const sendEmail = (e) => {
@@ -25,12 +26,18 @@ export default function EmailForm() {
         .then(
             (result) => {
             console.log(result.text);
+            setEmailSent(true);
             },
             (error) => {
             console.log(error.text);
             }
         );
     };
+
+    const handleAlertDismiss = () => {
+        setEmailSent(false);
+        window.location.reload();
+    }
 
     return (
         <form ref={form} onSubmit={sendEmail}>
@@ -51,7 +58,14 @@ export default function EmailForm() {
         <label htmlFor="invoiceDescription">Invoice Description:</label>
         <textarea id="invoiceDescription" name="invoiceDescription" required></textarea>
 
-        <input type="submit" value="Send!" />
+        <input type="submit" value="Send!" disabled={emailSent} />
+
+        {emailSent && (
+            <div className="alert alert-success" role="alert">
+                Invoice sent successfully!
+                <button type="button" className="btn-close" onClick={handleAlertDismiss}>Send Another Bitvoice!</button>
+            </div>
+        )}
 
         <input type='hidden' id="timestamp" name='timestamp' value={timestamp}/>
         </form>

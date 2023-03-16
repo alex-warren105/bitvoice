@@ -1,17 +1,25 @@
 import { useState, useRef } from 'react';
 import emailjs from 'emailjs-com';
 
+/**
+ * A form component that allows users to send an invoice email.
+ */
+
 export default function EmailForm() {
     const [timestamp, setTimestamp] = useState('')
     const [emailSent, setEmailSent] = useState(false);
     const form = useRef();
 
+    /**
+     * Sends an email using the emailjs API and sets the timestamp state.
+     * 
+     * @param {Object} e - The event object
+     */
+
     const sendEmail = (e) => {
-        e.preventDefault();
-        console.log('Sending email...');
+        e.preventDefault();// prevents form from default refreshing the page
         const now = new Date();
-        setTimestamp(now.toLocaleString());
-        console.log('Timestamp set to:', timestamp);
+        setTimestamp(now.toLocaleString());//
 
         const timestampField = form.current.elements.namedItem("timestamp");
         timestampField.value = now.toLocaleString();
@@ -33,6 +41,10 @@ export default function EmailForm() {
             }
         );
     };
+
+    /**
+     * Sets the emailSent state to false, which dismisses the success alert.
+     */
 
     const handleAlertDismiss = () => {
         setEmailSent(false);

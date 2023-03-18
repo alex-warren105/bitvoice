@@ -6,6 +6,7 @@ import emailjs from 'emailjs-com';
  */
 
 export default function EmailForm() {
+    // Initialize state variables to hold the timestamp and whether the email has been sent
     const [timestamp, setTimestamp] = useState('')
     const [emailSent, setEmailSent] = useState(false);
     const form = useRef();
@@ -18,9 +19,12 @@ export default function EmailForm() {
 
     const sendEmail = (e) => {
         e.preventDefault();// prevents form from default refreshing the page
-        const now = new Date();
-        setTimestamp(now.toLocaleString());//
 
+        // Set the timestamp to the current time
+        const now = new Date();
+        setTimestamp(now.toLocaleString());
+
+        // Update the hidden input field with the timestamp
         const timestampField = form.current.elements.namedItem("timestamp");
         timestampField.value = now.toLocaleString();
 
@@ -71,14 +75,14 @@ export default function EmailForm() {
         <textarea id="invoiceDescription" name="invoiceDescription" required></textarea>
 
         <input type="submit" value="Send!" disabled={emailSent} />
-
+        {/* Success message displayed when email is sent */}
         {emailSent && (
             <div className="alert alert-success" role="alert">
                 Invoice sent successfully!
                 <button type="button" className="btn-close" onClick={handleAlertDismiss}>Send Another Bitvoice!</button>
             </div>
         )}
-
+        {/* Hidden input field to hold the timestamp */}
         <input type='hidden' id="timestamp" name='timestamp' value={timestamp}/>
         </form>
     );

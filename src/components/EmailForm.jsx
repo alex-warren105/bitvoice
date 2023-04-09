@@ -10,7 +10,6 @@ export default function EmailForm() {
     const [timestamp, setTimestamp] = useState('')
     const [emailSent, setEmailSent] = useState(false);
     const form = useRef();
-
     /**
      * Sends an email using the emailjs API and sets the timestamp state.
      * 
@@ -33,7 +32,7 @@ export default function EmailForm() {
             'default_service',
             'template_efo3bp2',
             form.current,
-            'wFHLTcghtNMJbuPQZ'
+            import.meta.env.VITE_EMAILJS_KEY
         )
         .then(
             (result) => {

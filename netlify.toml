@@ -1,2 +1,3 @@
 [build]
     functions = "functions/"
+    TZ = 'America/New_York'

@@ -4,13 +4,6 @@ exports.handler = async (event, context) => {
   try {
     const data = JSON.parse(event.body);
 
-    // Set the timestamp to the current time
-    const now = new Date();
-    const timestamp = now.toLocaleString();
-
-    // Update the data with the timestamp
-    data.timestamp = timestamp;
-
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -29,7 +22,7 @@ exports.handler = async (event, context) => {
         <p><strong>Sender Contact Information:</strong> ${data.senderContact}</p>
         <p><strong>Invoice Description:</strong> ${data.invoiceDescription}</p>
         <p><strong>Currency:</strong> ${data.unitType}${data.unitsInvoiced}</p>
-        <p><strong>Timestamp:</strong> ${timestamp}</p>
+        <p><strong>Timestamp:</strong> ${data.timestamp}</p>
       `,
     };
 

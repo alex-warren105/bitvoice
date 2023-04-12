@@ -4,9 +4,11 @@ exports.handler = async (event, context) => {
   try {
     const data = JSON.parse(event.body);
 
-    // Set the timestamp to the current time
+    // Set the timestamp to the current time in the user's local time zone
     const now = new Date();
-    const timestamp = now.toLocaleString();
+    const timezone = data.timezone || 'UTC'; // fallback to UTC if no timezone is provided
+    const options = { timeZone: timezone };
+    const timestamp = now.toLocaleString('en-US', options);
 
     // Update the data with the timestamp
     data.timestamp = timestamp;

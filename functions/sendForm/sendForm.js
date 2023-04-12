@@ -4,6 +4,9 @@ exports.handler = async (event, context) => {
   try {
     const data = JSON.parse(event.body);
 
+    // Log the value of the timezone property
+    console.log('Time zone:', data.timezone);
+
     // Set the timestamp to the current time in the user's local time zone
     const now = new Date();
     const timezone = data.timezone || 'UTC'; // fallback to UTC if no timezone is provided

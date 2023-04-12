@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import emailjs from 'emailjs-com';
 
 /**
  * A form component that allows users to send an invoice email.
@@ -15,35 +14,24 @@ export default function EmailForm() {
      * 
      * @param {Object} e - The event object
      */
-
     const sendEmail = (e) => {
-        e.preventDefault();// prevents form from default refreshing the page
-
-        // Set the timestamp to the current time
-        const now = new Date();
-        setTimestamp(now.toLocaleString());
-
-        // Update the hidden input field with the timestamp
-        const timestampField = form.current.elements.namedItem("timestamp");
-        timestampField.value = now.toLocaleString();
-
-        emailjs
-        .sendForm(
-            'default_service',
-            'template_efo3bp2',
-            form.current,
-            import.meta.env.VITE_EMAILJS_KEY
-        )
-        .then(
-            (result) => {
-            console.log(result.text);
+        e.preventDefault();
+    
+        const formData = new FormData(form.current);
+        formData.append('timestamp', timestamp);
+    
+        fetch('/.netlify/functions/sendForm', {
+          method: 'POST',
+          body: JSON.stringify(Object.fromEntries(formData)),
+        })
+          .then((res) => res.json())
+          .then((data) => {
             setEmailSent(true);
-            },
-            (error) => {
-            console.log(error.text);
-            }
-        );
-    };
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
 
     /**
      * Sets the emailSent state to false, which dismisses the success alert.

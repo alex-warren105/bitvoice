@@ -17,11 +17,12 @@ export default function EmailForm() {
     const sendEmail = (e) => {
         e.preventDefault();
       
-        const formData = new FormData(form.current);
+        // Get the current timestamp in the user's local timezone
         const now = new Date();
-        const timestamp = now.toISOString();
+        const timestamp = now.toLocaleString(undefined, { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone });
+      
+        const formData = new FormData(form.current);
         formData.append('timestamp', timestamp);
-        setTimestamp(timestamp);
       
         fetch('/.netlify/functions/sendForm', {
           method: 'POST',
@@ -30,6 +31,7 @@ export default function EmailForm() {
           .then((res) => res.json())
           .then((data) => {
             setEmailSent(true);
+            setTimestamp(timestamp); // set the timestamp state to the user's local timezone
           })
           .catch((error) => {
             console.error(error);

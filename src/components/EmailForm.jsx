@@ -16,10 +16,13 @@ export default function EmailForm() {
      */
     const sendEmail = (e) => {
         e.preventDefault();
-    
+      
         const formData = new FormData(form.current);
+        const now = new Date();
+        const timestamp = now.toISOString();
         formData.append('timestamp', timestamp);
-    
+        setTimestamp(timestamp);
+      
         fetch('/.netlify/functions/sendForm', {
           method: 'POST',
           body: JSON.stringify(Object.fromEntries(formData)),
@@ -32,6 +35,7 @@ export default function EmailForm() {
             console.error(error);
           });
       };
+      
 
     /**
      * Sets the emailSent state to false, which dismisses the success alert.

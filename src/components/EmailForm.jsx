@@ -56,13 +56,14 @@ export default function EmailForm() {
         <label htmlFor="senderContact">Sender Contact Information:</label>
         <input type="text" id="senderContact" name="senderContact" required />
 
-        <label htmlFor="unitType">Currency</label>
-        <select name="unitType">
-            <option>USD $</option>
-        </select>
-
         <label htmlFor="unitsInvoiced">Units Invoiced:</label>
-        <input type="number" id="unitsInvoiced" name="unitsInvoiced" required />
+        <div id="amount">
+            <select name="unitType">
+                <option>BTC</option>
+                <option>SAT</option>
+            </select>
+            <input type="number" id="unitsInvoiced" name="unitsInvoiced" required />
+        </div>
 
         <label htmlFor="invoiceDescription">Invoice Description:</label>
         <textarea id="invoiceDescription" name="invoiceDescription" required></textarea>
